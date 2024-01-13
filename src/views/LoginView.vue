@@ -2,7 +2,7 @@
     <div class="page-log-in">
         <div class="flex flex-col">
             <div class="flex flex-col">
-                <h1 class="title">Log In</h1>
+                <h1 class="">Log In</h1>
                 <form @submit.prevent="submitForm">
 
                     <div class="flex flex-col">
@@ -24,8 +24,8 @@
                     </div>
 
                     <div class="flex flex-col mt-5">
-                        <div class="">
-                            <button class="bg-black">Log In</button>
+                        <div class="border border-orange-500">
+                            <button class="">Log In</button>
                         </div>
                     </div>
 

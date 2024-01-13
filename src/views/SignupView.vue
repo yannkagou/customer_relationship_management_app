@@ -31,8 +31,8 @@
                     </div>
 
                     <div class="flex flex-col mt-5">
-                        <div class="">
-                            <button class="bg-black">Sign Up</button>
+                        <div class="border border-orange-500">
+                            <button class="">Sign Up</button>
                         </div>
                     </div>
 
