@@ -4,12 +4,12 @@
             <h1>CRM APP</h1>
         </div>
         <span class="text-white text-4xl absolute right-6 top-5 cursor-pointer md:hidden" @click="menuOpen">
-            <i :class="[open ? 'bi bi-x' : 'bi bi-filter-left']" class="hover:text-green-400"></i>
+            <i :class="`hover:text-green-400 ${open ? 'bi bi-x' : 'bi bi-filter-left'}`"></i>
         </span>
 
         <ul class="w-full bg-gray-900 gap-5 items-center px-6 absolute top-14 md:flex md:static md:w-auto md:pb-0 md:px-0 duration-500" :class="[open ? 'left-0' : 'left-[-100%]']">
-            <RouterLink v-if="store.isAuthenticated" to="/account"><li class="my-6 md:my-0 text-white duration-300 text-xl">My Account</li></RouterLink>
-            <RouterLink v-else to="/"><li class="my-6 md:my-0 text-white duration-300 text-xl">Log In</li></RouterLink>
+            <li v-if="store.isAuthenticated" class="my-6 md:my-0 text-white duration-300 text-xl"><RouterLink to="/account">My Account</RouterLink></li>
+            <li v-else class="my-6 md:my-0 text-white duration-300 text-xl"><RouterLink to="/">Log In</RouterLink></li>
         </ul>
     </div>
 </template>
@@ -35,12 +35,12 @@ const menuOpen = () => {
 <style lang="scss" scoped>
 
 .router-link-exact-active {
-    color: rgb(74 222 128) !important;
-    border-bottom: 2px solid rgb(74 222 128) !important;
+    color: rgb(74 222 128);
+    border-bottom: 3px solid rgb(74 222 128) !important;
 }
 
-li{
-    padding-bottom: 10px !important;
+li.router-link-exact-active{
+    color: rgb(74 222 128) !important;
 }
 
 li:hover {
