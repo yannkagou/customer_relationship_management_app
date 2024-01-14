@@ -25,8 +25,8 @@ export const useCmrStore = defineStore({
             //     localStorage.setItem('cart', JSON.stringify(this.cart))
             // }
 
-            if (localStorage.getItem('token')){
-                this.token = localStorage.getItem('token'),
+            if (localStorage.getItem('cmr_token')){
+                this.token = localStorage.getItem('cmr_token'),
                 this.isAuthenticated = true
             } else [
                 this.token = '',
