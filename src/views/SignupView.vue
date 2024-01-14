@@ -1,56 +1,48 @@
 <template>
-    <div class="page-sign-up">
-        <div class="flex flex-col">
-            <div class="flex flex-col">
-                <h1 class="">Sign Up</h1>
+    <div class="m-auto w-1/2">
+            <div class="pt-16">
+                <h1 class="text-2xl font-bold mb-5">Sign Up</h1>
                 <form @submit.prevent="submitForm">
 
-                    <div class="flex flex-col">
-                        <label>Username</label>
-                        <div class="">
-                            <input type="text" class="" v-model="username">
-                        </div>
+                    <div class="text-green-400 w-11/12 mx-auto my-2 flex flex-col items-center">
+                        <label class="w-full">Username</label>
+                        <input type="text" class="w-full py-0 px-4 font-semibold" v-model="username">
                     </div>
 
-                    <div class="flex flex-col">
-                        <label>Password</label>
-                        <div class="">
-                            <input type="password" class="" v-model="password">
-                        </div>
+                    <div class="text-green-400 w-11/12 mx-auto my-2 flex flex-col items-center">
+                        <label class="w-full">Password</label>
+                        <input type="password" class="w-full py-0 px-4 font-semibold" v-model="password">
                     </div>
 
-                    <div class="flex flex-col">
-                        <label>Repeat password</label>
-                        <div class="">
-                            <input type="password" class="" v-model="password2">
-                        </div>
+                    <div class="text-green-400 w-11/12 mx-auto my-2 flex flex-col items-center">
+                        <label class="w-full">Repeat Password</label>
+                        <input type="password" class="w-full py-0 px-4 font-semibold" v-model="password2">
                     </div>
 
-                    <div class="bg-red-500" v-if="errors.length">
-                        <p v-for="error in errors" :key="error">{{ error }}</p>
+                    <div class="bg-red-500 w-11/12 mx-auto my-2 flex flex-col items-center errors py-2" v-if="errors.length">
+                        <p v-for="error in errors" :key="error" class="w-full py-0 px-4 font-semibold text-white">{{ error }}</p>
                     </div>
 
-                    <div class="flex flex-col mt-5">
-                        <div class="border border-orange-500">
-                            <button class="">Sign Up</button>
-                        </div>
+                    <div class="mt-2">
+                        <button class="">Sign Up</button>
                     </div>
 
-                    <hr>
+                    <hr class="mb-3">
 
-                    Or <router-link to="/">click here</router-link> to log in!
+                    <p class="lg:text-2xl">Or <span class="text-green-400"><router-link to="/">click here</router-link></span> to log in!</p>
 
                 </form>
             </div>
-        </div>
     </div>
 </template>
 
 <script setup>
 import axios  from 'axios';
-import { toast } from 'bulma-toast'
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toast-notification';
+
+const toast = useToast();
 
 const router = useRouter()
 
@@ -88,15 +80,8 @@ function submitForm() {
         axios
             .post('/api/v1/users/', formData)
             .then(response => {
-                toast({
-                    message: 'Account created, please log in!',
-                    type: 'is-success',
-                    dismissible: true,
-                    pauseOnHover: true,
-                    duration: 2000,
-                    position: 'bottom-right',
-                })
                 router.push('/')
+                toast.success('Account created!')
             })
             .catch(error => {
                 if (error.response){
@@ -113,3 +98,39 @@ function submitForm() {
 }
 
 </script>
+
+<style lang="scss" scoped>
+
+input{
+    border: 1px solid rgb(74 222 128);
+    border-radius: 6px;
+    line-height: 48px;
+    outline: none;
+}
+
+input:focus{
+    border: 3px solid rgb(74 222 128);
+}
+
+.errors{
+    border-radius: 6px;
+}
+
+button {
+    width: 70%;
+    margin: 20px auto;
+    background-color: rgb(74 222 128);
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 17px;
+    line-height: 48px;
+    padding: 0 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+</style>

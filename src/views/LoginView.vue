@@ -1,40 +1,32 @@
 <template>
-    <div class="page-log-in">
-        <div class="flex flex-col">
-            <div class="flex flex-col">
-                <h1 class="">Log In</h1>
-                <form @submit.prevent="submitForm">
+    <div class="m-auto w-1/2">
+        <div class="pt-16">
+            <h1 class="text-2xl font-bold mb-5">Log In</h1>
+            <form @submit.prevent="submitForm">
+  
+                <div class="text-green-400 w-11/12 mx-auto my-2 flex flex-col items-center">
+                    <label class="w-full">Username</label>
+                    <input type="text" class="w-full py-0 px-4 font-semibold" v-model="username">
+                </div>
+                    
+                <div class="text-green-400 w-11/12 mx-auto my-2 flex flex-col items-center">
+                    <label class="w-full">Password</label>
+                    <input type="password" class="w-full py-0 px-4 font-semibold" v-model="password">
+                </div>
 
-                    <div class="flex flex-col">
-                        <label>Username</label>
-                        <div class="">
-                            <input type="text" class="" v-model="username">
-                        </div>
-                    </div>
+                <div class="bg-red-500 w-11/12 mx-auto my-2 flex flex-col items-center errors py-2" v-if="errors.length">
+                    <p v-for="error in errors" :key="error" class="w-full py-0 px-4 font-semibold text-white">{{ error }}</p>
+                </div>
 
-                    <div class="flex flex-col">
-                        <label>Password</label>
-                        <div class="">
-                            <input type="password" class="" v-model="password">
-                        </div>
-                    </div>
+                <div class="mt-2">
+                    <button class="">Log In</button>
+                </div>
 
-                    <div class="bg-red-500" v-if="errors.length">
-                        <p v-for="error in errors" :key="error">{{ error }}</p>
-                    </div>
+                <hr class="mb-3">
 
-                    <div class="flex flex-col mt-5">
-                        <div class="border border-orange-500">
-                            <button class="">Log In</button>
-                        </div>
-                    </div>
+                <p class="text-2xl">Or <span class="text-green-400"><router-link to="/signup">click here</router-link></span> to sign up!</p>
 
-                    <hr>
-
-                    Or <router-link to="/signup">click here</router-link> to sign up!
-
-                </form>
-            </div>
+            </form>
         </div>
     </div>
 </template>
@@ -42,9 +34,11 @@
 <script setup>
 import axios  from 'axios';
 import { useCmrStore } from '../stores/index';
-import { toast } from 'bulma-toast'
 import { onBeforeMount, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useToast } from 'vue-toast-notification';
+
+const toast = useToast();
 
 const store = useCmrStore();
 const router = useRouter()
@@ -87,17 +81,10 @@ async function submitForm() {
                 const token = response.data.auth_token
                 store.setToken(token)
                 axios.defaults.headers.common['Authorization'] = 'Token' + token
-                localStorage.setItem('token', token)
+                localStorage.setItem('cmr_token', token)
                 // const toPath = route.query.to || '/cart'
                 // router.push(toPath)
-                toast({
-                    message: 'Successfully log in!',
-                    type: 'is-success',
-                    dismissible: true,
-                    pauseOnHover: true,
-                    duration: 2000,
-                    position: 'bottom-right',
-                })
+                toast.success("Successfully Login!")
             })
             .catch(error => {
                 if (error.response){
@@ -115,3 +102,38 @@ async function submitForm() {
 }
 
 </script>
+
+<style lang="scss" scoped>
+
+input{
+    border: 1px solid rgb(74 222 128);
+    border-radius: 6px;
+    line-height: 48px;
+    outline: none;
+}
+
+input:focus{
+    border: 3px solid rgb(74 222 128);
+}
+.errors{
+    border-radius: 6px;
+}
+
+button {
+    width: 70%;
+    margin: 20px auto;
+    background-color: rgb(74 222 128);
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 17px;
+    line-height: 48px;
+    padding: 0 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+}
+
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg-green-400 h-screen">
+  <div id="app" class="bg-white h-screen">
     <Navbar />
 
     <div class="is-loading-bar text-center" :class="{'is-loading': store.isLoading}">
@@ -11,7 +11,7 @@
     </section>
 
     <footer class="mt-6">
-      <p class="text-center">Copyright (c) Yannick Kagou 2024</p>
+      <p class="text-center text-xl font-semibold">Copyright (c) Yannick Kagou 2024</p>
     </footer>
     
   </div>
