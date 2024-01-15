@@ -10,7 +10,7 @@ export const useCmrStore = defineStore({
            clients : []
         },
         isAuthenticated: false,
-        token:'',
+        token: null,
         isLoading: false
     }),
     

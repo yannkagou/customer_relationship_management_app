@@ -24,7 +24,7 @@
 
                 <hr class="mb-3">
 
-                <p class="text-2xl">Or <span class="text-green-400"><router-link to="/signup">click here</router-link></span> to sign up!</p>
+                <p class="lg:text-2xl">Or <span class="text-green-400"><router-link to="/signup">click here</router-link></span> to sign up!</p>
 
             </form>
         </div>
