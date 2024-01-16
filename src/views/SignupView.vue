@@ -80,7 +80,7 @@ function submitForm() {
         axios
             .post('/api/v1/users/', formData)
             .then(response => {
-                router.push('/')
+                router.push('/login')
                 toast.success('Account created!')
             })
             .catch(error => {

@@ -28,10 +28,10 @@ export const useCmrStore = defineStore({
             if (localStorage.getItem('cmr_token')){
                 this.token = localStorage.getItem('cmr_token'),
                 this.isAuthenticated = true
-            } else [
+            } else {
                 this.token = '',
                 this.isAuthenticated = false
-            ]
+            }
         },
 
         

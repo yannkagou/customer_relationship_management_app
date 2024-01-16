@@ -2,8 +2,9 @@
     <div class="container">
         <div>
             <h1>Leads</h1>
+            <RouterLink to="/leads/add">Add lead</RouterLink>
         </div>
-
+  
         <div>
             <table class="w-full table">
                 <thead>
@@ -11,6 +12,7 @@
                         <th>Company</th>
                         <th>Contact Person</th>
                         <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,6 +20,7 @@
                         <td>{{ lead.company }}</td>
                         <td>{{ lead.contact_person }}</td>
                         <td>{{ lead.status }}</td>
+                        <td><RouterLink :to="{name: 'leadDetails', params: {id: lead.id}}">Details</RouterLink></td>
                     </tr>
                 </tbody>
             </table>
@@ -33,7 +36,6 @@ import { onMounted, ref } from 'vue';
 const store = useCmrStore();
 
 let leads = ref([])
-
 
 onMounted(() => {
     getLeads()

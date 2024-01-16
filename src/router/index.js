@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignupView.vue'
+import HomeView from '../views/HomeView.vue'
 import AccountView from '../views/AccountView.vue'
 import LeadsView from '../views/LeadsView.vue'
+import LeadDetailsView from '../views/LeadDetailsView.vue'
+import EditLeadView from '../views/EditLeadView.vue'
+import AddLeadsView from '../views/AddLeadsView.vue'
 
 import { useCmrStore } from '../stores/index'
 
@@ -11,6 +15,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: HomeView,
+    },
+    {
+      path: '/login',
       name: 'login',
       component: LoginView
     },
@@ -28,6 +37,30 @@ const router = createRouter({
       path: '/leads',
       name: 'leads',
       component: LeadsView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/leads/add',
+      name: 'addLead',
+      component: AddLeadsView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/leads/:id',
+      name: 'leadDetails',
+      component: LeadDetailsView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/leads/:id/edit',
+      name: 'editLead',
+      component: EditLeadView,
       meta: {
         requireLogin: true
       }
