@@ -6,8 +6,9 @@ export const useCmrStore = defineStore({
     id: 'cmr',
 
     state: () => ({
-        lead: {
-           clients : []
+        user: {
+           id : 0,
+           username: ''
         },
         isAuthenticated: false,
         token: null,
@@ -26,11 +27,15 @@ export const useCmrStore = defineStore({
             // }
 
             if (localStorage.getItem('cmr_token')){
-                this.token = localStorage.getItem('cmr_token'),
+                this.token = localStorage.getItem('cmr_token')
                 this.isAuthenticated = true
+                this.user.id = localStorage.getItem('userid')
+                this.user.username = localStorage.getItem('username')
             } else {
                 this.token = '',
                 this.isAuthenticated = false
+                this.user.id = 0
+                this.user.username = ''
             }
         },
 
@@ -48,5 +53,8 @@ export const useCmrStore = defineStore({
             this.token = '',
             this.isAuthenticated = false
         },
+        setUser(user) {
+            this.user = user
+        }
     }
 })

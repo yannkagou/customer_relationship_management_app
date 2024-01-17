@@ -35,14 +35,13 @@
 import axios  from 'axios';
 import { useCmrStore } from '../stores/index';
 import { onBeforeMount, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toast-notification';
 
 const toast = useToast();
 
 const store = useCmrStore();
 const router = useRouter()
-const route = useRoute()
 
 let username = ref('')
 let password = ref('')
@@ -67,37 +66,56 @@ async function submitForm() {
         errors.value.push('The password is missing')
     }
     if (!errors.value.length) {
+
+        store.setIsLoading(true)
+
         axios.defaults.headers.common['Authorization'] = ''
-        localStorage.removeItem('token')
+        localStorage.removeItem('cmr_token')
 
         const formData = {
             username: username.value,
             password: password.value
         }
 
-        axios
-            .post('/api/v1/token/login/', formData)
-            .then(response => {
-                const token = response.data.auth_token
-                store.setToken(token)
-                axios.defaults.headers.common['Authorization'] = 'Token' + token
-                localStorage.setItem('cmr_token', token)
-                // const toPath = route.query.to || '/cart'
-                // router.push(toPath)
-                toast.success("Successfully Login!")
-            })
-            .catch(error => {
-                if (error.response){
-                    for (const property in error.response.data){
-                        errors.value.push(`${property}: ${error.response.data[property]}`)
+        await axios
+                .post('/api/v1/token/login/', formData)
+                .then(response => {
+                    const token = response.data.auth_token
+                    store.setToken(token)
+                    axios.defaults.headers.common['Authorization'] = 'Token' + token
+                    localStorage.setItem('cmr_token', token)
+                })
+                .catch(error => {
+                    if (error.response){
+                        for (const property in error.response.data){
+                            errors.value.push(`${property}: ${error.response.data[property]}`)
+                        }
+                        console.log(JSON.stringify(error.response.data))
+                    } else if (error.message) {
+                        errors.value.push('Something went wrong. Please try again')
+                        console.log(error.message)
+                        console.log(JSON.stringify(error))
                     }
-                    console.log(JSON.stringify(error.response.data))
-                } else if (error.message) {
-                    errors.value.push('Something went wrong. Please try again')
-                    console.log(error.message)
-                    console.log(JSON.stringify(error))
-                }
-            })
+                })
+        
+        await axios
+                .get('/api/v1/users/me')
+                .then(response => {
+                    store.setUser({
+                        'id': response.data.id,
+                        'username': response.data.username
+                    })
+                    localStorage.setItem('username', response.data.username)
+                    localStorage.setItem('userid', response.data.id)
+
+                    router.push('/account')
+                    toast.success("Successfully Login!")
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+        store.setIsLoading(false)
     }
 }
 
