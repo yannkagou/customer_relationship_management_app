@@ -10,6 +10,10 @@ export const useCmrStore = defineStore({
            id : 0,
            username: ''
         },
+        team: {
+            id: 0,
+            name: ''
+        },
         isAuthenticated: false,
         token: null,
         isLoading: false
@@ -29,13 +33,15 @@ export const useCmrStore = defineStore({
             if (localStorage.getItem('cmr_token')){
                 this.token = localStorage.getItem('cmr_token')
                 this.isAuthenticated = true
-                this.user.id = localStorage.getItem('userid')
-                this.user.username = localStorage.getItem('username')
+                this.user.id = localStorage.getItem('team_id')
+                this.user.username = localStorage.getItem('team_name')
             } else {
                 this.token = '',
                 this.isAuthenticated = false
                 this.user.id = 0
                 this.user.username = ''
+                this.team.id = 0
+                this.team.name = ''
             }
         },
 
@@ -55,6 +61,12 @@ export const useCmrStore = defineStore({
         },
         setUser(user) {
             this.user = user
+        },
+        setTeam(team) {
+            this.team = team
+
+            localStorage.setItem('team_id', team.id)
+            localStorage.setItem('team_name', team.name)
         }
     }
 })

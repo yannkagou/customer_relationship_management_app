@@ -21,10 +21,13 @@
 <script setup>
 import axios from 'axios';
 import { onBeforeMount, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import Navbar from './components/Navbar.vue';
 import { useCmrStore } from '../src/stores/index.js'
 
 const store = useCmrStore();
+
+const router = useRouter()
 
 onBeforeMount(() => {
   store.initializeStore();
@@ -33,6 +36,10 @@ onBeforeMount(() => {
     axios.defaults.headers.common['Authorization'] = 'Token ' + token
   } else {
     axios.defaults.headers.common['Authorization'] = ''
+  }
+
+  if (!store.team.id){
+    router.push('/add-team')
   }
 })
 
