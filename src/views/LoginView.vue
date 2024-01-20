@@ -108,6 +108,16 @@ async function submitForm() {
                     localStorage.setItem('username', response.data.username)
                     localStorage.setItem('userid', response.data.id)
 
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+
+        await axios
+                .get('/api/v1/teams/get_my_team/')
+                .then(response => {
+                    store.setTeam({'id': response.data.id, 'name': response.data.name})
+
                     router.push('/account')
                     toast.success("Successfully Login!")
                 })

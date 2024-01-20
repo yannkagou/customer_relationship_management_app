@@ -30,6 +30,10 @@ const logout = async () => {
           axios.defaults.headers.common['Authorization'] = ""
 
           localStorage.removeItem('token')
+          localStorage.removeItem('username')
+          localStorage.removeItem('userid')
+          localStorage.removeItem('team_id')
+          localStorage.removeItem('team_name')
     
           store.removeToken()
 
