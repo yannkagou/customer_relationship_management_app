@@ -9,6 +9,7 @@ import EditLeadView from '../views/EditLeadView.vue'
 import AddLeadsView from '../views/AddLeadsView.vue'
 import AddTeamsView from '../views/AddTeamsView.vue'
 import TeamView from '../views/TeamView.vue'
+import AddTeamMemberView from '../views/AddTeamMemberView.vue'
 
 import { useCmrStore } from '../stores/index'
 
@@ -74,9 +75,14 @@ const router = createRouter({
     },
     {
       path: '/team',
-      name: 'Team',
+      name: 'team',
       component: TeamView,
-    }
+    },
+    {
+      path: '/team/add-member',
+      name: 'addMember',
+      component: AddTeamMemberView,
+    },
   ]
 })
 
