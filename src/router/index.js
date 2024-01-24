@@ -10,6 +10,7 @@ import AddLeadsView from '../views/AddLeadsView.vue'
 import AddTeamsView from '../views/AddTeamsView.vue'
 import TeamView from '../views/TeamView.vue'
 import AddTeamMemberView from '../views/AddTeamMemberView.vue'
+import ClientsView from '../views/ClientsView.vue'
 
 import { useCmrStore } from '../stores/index'
 
@@ -83,6 +84,15 @@ const router = createRouter({
       name: 'addMember',
       component: AddTeamMemberView,
     },
+    ,
+    {
+      path: '/clients',
+      name: 'clients',
+      component: ClientsView,
+      meta: {
+        requireLogin: true
+      }
+    }
   ]
 })
 

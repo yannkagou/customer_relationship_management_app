@@ -9,6 +9,7 @@
 
         <ul class="w-full bg-gray-900 gap-5 items-center px-6 absolute top-14 md:flex md:static md:w-auto md:pb-0 md:px-0 duration-500" :class="[open ? 'left-0' : 'left-[-100%]']">
             <li v-if="store.isAuthenticated" class="my-6 md:my-0 text-white duration-300 text-xl"><RouterLink to="/leads">Leads</RouterLink></li>
+            <li v-if="store.isAuthenticated" class="my-6 md:my-0 text-white duration-300 text-xl"><RouterLink to="/clients">Clients</RouterLink></li>
             <li v-if="store.isAuthenticated" class="my-6 md:my-0 text-white duration-300 text-xl"><RouterLink to="/team">Team</RouterLink></li>
             <li v-if="store.isAuthenticated" class="my-6 md:my-0 text-white duration-300 text-xl"><RouterLink to="/account">My Account</RouterLink></li>
             <li v-if="!store.isAuthenticated" class="my-6 md:my-0 text-white duration-300 text-xl"><RouterLink to="/signup">Sign Up</RouterLink></li>

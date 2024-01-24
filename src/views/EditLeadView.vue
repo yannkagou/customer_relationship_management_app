@@ -61,6 +61,14 @@
                     </select>
                 </div>
 
+                <div class="text-green-400 w-11/12 mx-auto my-2 flex flex-col items-center">
+                    <label class="w-full">Assign to</label>
+                    <select class="w-full py-0 px-4 font-semibold" v-model="lead.assigned_to">
+                        <option value="" selected>Select member</option>
+                        <option v-for="member in team.members" :key="member.id" :value="member.id">{{member.username}}</option>
+                    </select>
+                </div>
+
                 <div class="mt-2">
                     <button>Update</button>
                 </div>
@@ -84,8 +92,13 @@ const router = useRouter()
 
 let lead = reactive({})
 
+let team = reactive({
+    members: []
+})
+
 onMounted(() => {
-    getLead()
+    getLead();
+    getTeam()
 })
 
 const getLead = async () => {
@@ -96,6 +109,19 @@ const getLead = async () => {
             .then(response => {
                 console.log(response.data)
                 Object.assign(lead, response.data)
+            })
+    store.setIsLoading(false)
+}
+
+getTeam = async () => {
+    store.setIsLoading(true)
+    await axios
+            .get('/api/v1/teams/get_my_team/')
+            .then(response => {
+                Object.assign(team, response.data)
+            })
+            .catch(error => {
+                console.log(error)
             })
     store.setIsLoading(false)
 }
