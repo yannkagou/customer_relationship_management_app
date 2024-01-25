@@ -11,6 +11,10 @@ import AddTeamsView from '../views/AddTeamsView.vue'
 import TeamView from '../views/TeamView.vue'
 import AddTeamMemberView from '../views/AddTeamMemberView.vue'
 import ClientsView from '../views/ClientsView.vue'
+import AddClientView from '../views/AddClientView.vue'
+import ClientDetailsView from '../views/ClientDetailsView.vue'
+import EditClientView from '../views/EditClientView.vue'
+import AddNoteView from '../views/AddNoteView.vue'
 
 import { useCmrStore } from '../stores/index'
 
@@ -70,7 +74,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/add-team',
+      path: '/team/add-team',
       name: 'addTeam',
       component: AddTeamsView,
     },
@@ -92,7 +96,40 @@ const router = createRouter({
       meta: {
         requireLogin: true
       }
-    }
+    },
+    ,
+    {
+      path: '/clients/add',
+      name: 'addClient',
+      component: AddClientView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/client/:id',
+      name: 'clientDetails',
+      component: ClientDetailsView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/clients/:id/edit',
+      name: 'editClient',
+      component: EditClientView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/clients/:id/add-note',
+      name: 'addNote',
+      component: AddNoteView,
+      meta: {
+        requireLogin: true
+      }
+    },
   ]
 })
 

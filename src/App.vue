@@ -39,7 +39,7 @@ onBeforeMount(() => {
   }
 
   if (!store.team.id){
-    router.push('/add-team')
+    router.push('/team/add-team')
   }
 })
 
