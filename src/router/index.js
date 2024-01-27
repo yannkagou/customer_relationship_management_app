@@ -15,6 +15,10 @@ import AddClientView from '../views/AddClientView.vue'
 import ClientDetailsView from '../views/ClientDetailsView.vue'
 import EditClientView from '../views/EditClientView.vue'
 import AddNoteView from '../views/AddNoteView.vue'
+import EditNoteView from '../views/EditNoteView.vue'
+import EditMemberView from '../views/EditMemberView.vue'
+import PlansView from '../views/PlansView.vue'
+import PlansThankyouView from '../views/PlansThankyouView.vue'
 
 import { useCmrStore } from '../stores/index'
 
@@ -77,18 +81,26 @@ const router = createRouter({
       path: '/team/add-team',
       name: 'addTeam',
       component: AddTeamsView,
+      meta: {
+        requireLogin: true
+      }
     },
     {
       path: '/team',
       name: 'team',
       component: TeamView,
+      meta: {
+        requireLogin: true
+      }
     },
     {
       path: '/team/add-member',
       name: 'addMember',
       component: AddTeamMemberView,
+      meta: {
+        requireLogin: true
+      }
     },
-    ,
     {
       path: '/clients',
       name: 'clients',
@@ -97,7 +109,6 @@ const router = createRouter({
         requireLogin: true
       }
     },
-    ,
     {
       path: '/clients/add',
       name: 'addClient',
@@ -126,6 +137,38 @@ const router = createRouter({
       path: '/clients/:id/add-note',
       name: 'addNote',
       component: AddNoteView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/clients/:id/edit-note/:note_id',
+      name: 'editNote',
+      component: EditNoteView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/teams/edit-member/:id',
+      name: 'editMember',
+      component: EditMemberView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/teams/plans',
+      name: 'plans',
+      component: PlansView,
+      meta: {
+        requireLogin: true
+      }
+    },
+    {
+      path: '/teams/plans/thankyou',
+      name: 'thankyou',
+      component: PlansThankyouView,
       meta: {
         requireLogin: true
       }

@@ -12,7 +12,10 @@ export const useCmrStore = defineStore({
         },
         team: {
             id: 0,
-            name: ''
+            name: '',
+            plan: '',
+            max_leads: 0,
+            max_clients: 0,
         },
         isAuthenticated: false,
         token: null,
@@ -33,8 +36,13 @@ export const useCmrStore = defineStore({
             if (localStorage.getItem('cmr_token')){
                 this.token = localStorage.getItem('cmr_token')
                 this.isAuthenticated = true
-                this.user.id = localStorage.getItem('team_id')
-                this.user.username = localStorage.getItem('team_name')
+                this.user.id = localStorage.getItem('userid')
+                this.user.username = localStorage.getItem('username')
+                this.team.id = localStorage.getItem('team_id')
+                this.team.name = localStorage.getItem('team_name')
+                this.team.plan = localStorage.getItem('team_plan')
+                this.team.max_leads = localStorage.getItem('team_max_leads')
+                this.team.max_clients = localStorage.getItem('team_max_clients')
             } else {
                 this.token = '',
                 this.isAuthenticated = false
@@ -42,6 +50,9 @@ export const useCmrStore = defineStore({
                 this.user.username = ''
                 this.team.id = 0
                 this.team.name = ''
+                this.team.plan = ''
+                this.team.max_leads = 0
+                this.team.max_clients = 0
             }
         },
 
@@ -67,6 +78,9 @@ export const useCmrStore = defineStore({
 
             localStorage.setItem('team_id', team.id)
             localStorage.setItem('team_name', team.name)
+            localStorage.setItem('team_plan', team.plan)
+            localStorage.setItem('team_max_leads', team.max_leads)
+            localStorage.setItem('team_max_clients', team.max_clients)
         }
     }
 })

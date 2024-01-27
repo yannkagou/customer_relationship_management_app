@@ -1,12 +1,17 @@
 <template>
-  <div>
-    <button @click="logout">Logout</button>
+  <div class="container">
+    <h1>My Account</h1>
+    <div class="w-full">
+      <RouterLink :to="{name: 'editMember', params: {id: store.user.id}}" class="button">Edit</RouterLink>
+      <button @click="logout">Logout</button>
+    </div>
+    
   </div>
 </template>
 
 <script setup>
 import axios from 'axios';
-import { onBeforeMount, onMounted, reactive, ref } from 'vue';
+import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCmrStore } from '../stores/index';
 
