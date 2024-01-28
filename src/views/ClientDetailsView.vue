@@ -2,7 +2,10 @@
     <div class="container">
         <div class="w-full flex items-center justify-between">
             <h1>{{ client.name }}</h1>
-            <RouterLink :to="{name: 'editClient', params: {id: client.id}}" class="button">Edit</RouterLink>
+            <RouterLink :to="{name: 'editClient', params: {id: client.id}}" class="button"><button>Edit</button></RouterLink>
+            <div class="button">
+                <button @click="deleteClient()" class="">Delete</button>
+            </div>
         </div>
 
         <div class="flex w-1/2">
@@ -45,10 +48,13 @@ import axios from 'axios';
 import { useCmrStore } from '@/stores';
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const store = useCmrStore()
 
 const route = useRoute()
+
+const router = useRouter()
 
 let client = reactive({})
 
@@ -62,7 +68,7 @@ const getClient = async () => {
     store.setIsLoading(true)
     const clientID = route.params.id
     await axios
-            .get(`/api/v1/leads/${clientID}`)
+            .get(`/api/v1/clients/${clientID}`)
             .then(response => {
                 Object.assign(client, response.data)
             })
@@ -80,7 +86,22 @@ const getClient = async () => {
             })
 
     store.setIsLoading(false)
-} 
+}
+
+const deleteClient = async () => {
+    store.setIsLoading(true)
+    const clientID = route.params.id
+    await axios
+            .post(`/api/v1/clients/delete_client/${clientID}/`)
+            .then(response => {
+                console.log(response.data)
+                router.push('/clients')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    store.setIsLoading(false)
+}
 
 </script>
 

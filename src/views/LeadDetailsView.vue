@@ -5,7 +5,10 @@
             <div class="button">
                 <button @click="convertToClient" class="">Convert to client</button>
             </div>
-            <RouterLink :to="{name: 'editLead', params: {id: lead.id}}" class="button">Edit</RouterLink>
+            <RouterLink :to="{name: 'editLead', params: {id: lead.id}}" class="button"><button>Edit</button></RouterLink>
+            <div class="button">
+                <button @click="deleteLead()" class="">Delete</button>
+            </div>
         </div>
 
         <div class="flex w-1/2">
@@ -60,6 +63,24 @@ const getLead = async () => {
             .then(response => {
                 console.log(response.data)
                 Object.assign(lead, response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    store.setIsLoading(false)
+}
+
+const deleteLead = async () => {
+    store.setIsLoading(true)
+    const leadID = route.params.id
+    await axios
+            .post(`/api/v1/leads/delete_lead/${leadID}/`)
+            .then(response => {
+                console.log(response.data)
+                router.push('/leads')
+            })
+            .catch(error => {
+                console.log(error)
             })
     store.setIsLoading(false)
 }
